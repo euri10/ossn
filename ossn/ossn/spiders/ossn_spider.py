@@ -36,7 +36,7 @@ class ossnSpider(CrawlSpider):
             pat_title_company = re.compile('(\s+(.*\S),)?\s+(.*\S)\s+')
             #item['title_company'] = response.xpath('.//*[@id="sched-page-me-profile-data"]/text()').extract()
             item['title'] = pat_title_company.match(title_company).group(2)
-            item['company'] = pat_title_company.match(title_company).group(3)
+            item['company'] = re.sub(r',', '', pat_title_company.match(title_company).group(3))
         except IndexError, e:
             #item['title_company'] = None
             item['title'] = None
@@ -44,7 +44,7 @@ class ossnSpider(CrawlSpider):
 
         try:
             location = response.xpath('.//*[@id="sched-page-me-profile-data"]/text()').extract()[1]
-            item['location'] = re.sub(r'\s+$','',re.sub(r'^\s+','',location))
+            item['location'] = re.sub(r',', '', re.sub(r'\s+$','',re.sub(r'^\s+','',location)))
         except IndexError, e:
             item['location'] = None
         try:
