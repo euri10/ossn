@@ -38,7 +38,7 @@ class ossnSpider(CrawlSpider):
             item['title'] = pat_title_company.match(title_company).group(2)
             item['company'] = pat_title_company.match(title_company).group(3)
         except IndexError, e:
-            item['title_company'] = None
+            #item['title_company'] = None
             item['title'] = None
             item['company'] = None
 

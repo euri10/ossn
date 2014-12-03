@@ -13,6 +13,6 @@ BOT_NAME = 'ossn'
 SPIDER_MODULES = ['ossn.spiders']
 NEWSPIDER_MODULE = 'ossn.spiders'
 DOWNLOADER_MIDDLEWARES = {'ossn.middlewares.ProxyMiddleware': 1}
-
+FEED_EXPORT_DELIMITER = ';'
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'ossn (+http://www.yourdomain.com)'
