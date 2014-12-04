@@ -17,7 +17,7 @@ class ossnSpider(CrawlSpider):
     allowed_domains = [allowed]
 
     start_urls = [start]
-    rules = (Rule(LxmlLinkExtractor(allow_domains=allowed_domains, restrict_xpaths='.//*[@id="sched-content-inner"]/div[2]/a'),callback='parse_page', follow=False),
+    rules = (Rule(LxmlLinkExtractor(allow_domains=allowed_domains, restrict_xpaths='.//*[@id="sched-content-inner"]/div[2]/a'),callback='parse_page', follow=True),
             Rule(LxmlLinkExtractor(allow_domains=allowed_domains, restrict_xpaths='.//*[@id="sched-content-inner"]/div[1]/div/div[*]/h2/a'),callback='parse_user'))
 
     def parse_page(self, response):
@@ -28,7 +28,6 @@ class ossnSpider(CrawlSpider):
 
         item['name'] = response.xpath('.//*[@id="sched-page-me-name"]/text()').extract()
         item['image_url'] = response.xpath('.//*[@id="myavatar"]/@src').extract()
-        #item['title_company'] = response.xpath('.//*[@id="sched-page-me-profile-data"]/text()').extract()
         item['title_company'] = response.xpath('.//*[@id="sched-page-me-profile-data"]/br/preceding-sibling::text()').extract()
         item['location'] = response.xpath('.//*[@id="sched-page-me-profile-data"]/br/following-sibling::text()').extract()
         item['social'] = response.xpath('.//*[@id="sched-page-me-networks"]/div/a/@href').extract()

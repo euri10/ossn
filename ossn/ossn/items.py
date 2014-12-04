@@ -12,8 +12,8 @@ class OssnItem(scrapy.Item):
 
     name = scrapy.Field()
     image_url = scrapy.Field()
-    title = scrapy.Field()
-    company= scrapy.Field()
+    #title = scrapy.Field()
+    #company= scrapy.Field()
     title_company= scrapy.Field()
     location= scrapy.Field()
     social = scrapy.Field()

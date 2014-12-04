@@ -18,21 +18,12 @@ def clean(lst):
 
 class OssnPipeline(object):
     def process_item(self, item, spider):
-        #item['name'] clean, can have whitespaces
 
         item['name'] = clean(item['name'])
         item['location'] = clean(item['location'])
         item['title_company'] = clean(item['title_company'])
         item['biography_summary'] = clean(item['biography_summary'])
 
-
-
-        # clean_location = []
-        # for loc in item['location']:
-        #     loc = re.sub(r',', '', re.sub(r'\s+$','',re.sub(r'^\s+','',loc)))
-        #     clean_location.append(loc)
-        #
-        # #bio re.sub(r'\s+', '', bio)
         return item
 
 
