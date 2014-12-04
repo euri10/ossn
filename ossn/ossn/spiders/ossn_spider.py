@@ -25,8 +25,8 @@ class ossnSpider(CrawlSpider):
 
     def parse_user(self, response):
         item = OssnItem()
-        name = response.xpath('.//*[@id="sched-page-me-name"]/text()').extract()[0]
-        item['name'] = re.sub(r'\s+','',name)
+        item['name'] = response.xpath('.//*[@id="sched-page-me-name"]/text()').extract()
+
         try:
             item['image_url'] = response.xpath('.//*[@id="myavatar"]/@src').extract()[0]
         except IndexError, e:

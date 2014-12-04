@@ -6,7 +6,7 @@ __author__ = 'bbarthelet'
 # Importing base64 library because we'll need it ONLY in case if the proxy we are going to use requires authentication
 import base64
 import random
-from ConfigParser import SafeConfigParser
+from ConfigParser import SafeConfigParser, NoSectionError
 
 # Start your middleware class
 class ProxyMiddleware(object):
@@ -15,15 +15,19 @@ class ProxyMiddleware(object):
 
         parser = SafeConfigParser()
         parser.read('config.ini')
-        proxyurl = parser.get('proxy_settings', 'proxyurl')
-        username = parser.get('proxy_settings', 'username')
-        password = parser.get('proxy_settings', 'password')
+        try:
+            proxyurl = parser.get('proxy_settings', 'proxyurl')
+            username = parser.get('proxy_settings', 'username')
+            password = parser.get('proxy_settings', 'password')
+            # Set the location of the proxy
 
-        # Set the location of the proxy
-        request.meta['proxy'] = proxyurl
+            request.meta['proxy'] = proxyurl
 
-        # Use the following lines if your proxy requires authentication
-        proxy_user_pass = username+":"+password
-        # setup basic authentication for the proxy
-        encoded_user_pass = base64.encodestring(proxy_user_pass)
-        request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
+            # Use the following lines if your proxy requires authentication
+            proxy_user_pass = username+":"+password
+            # setup basic authentication for the proxy
+            encoded_user_pass = base64.encodestring(proxy_user_pass)
+            request.headers['Proxy-Authorization'] = 'Basic ' + encoded_user_pass
+        except NoSectionError, e:
+            pass
+
