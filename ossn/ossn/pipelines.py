@@ -7,23 +7,26 @@
 
 import re
 
+def clean(lst):
+    clean_name = []
+    if lst:
+        for l in lst:
+            if re.match('^(\s+)?(.*?)(\s+)$', l) is not None:
+                l = re.match('^(\s+)?(.*?)(\s+)$', l).group(2)
+            clean_name.append(l)
+    return clean_name
+
 class OssnPipeline(object):
     def process_item(self, item, spider):
         #item['name'] clean, can have whitespaces
 
-        clean_name = []
-        if item['name']:
-            for l in item['name']:
-                l = re.sub(r'\s+', '', l)
-                clean_name.append(l)
-        item['name'] = clean_name
-        #
-        #
-        # pat_title_company = re.compile('(\s+(.*\S),)?\s+(.*\S)\s+')
-        # for t in item['title_company']:
-        #     item['title'] = pat_title_company.match(t).group(2)
-        #     item['company'] = re.sub(r',', '', pat_title_company.match(t).group(3))
-        #
+        item['name'] = clean(item['name'])
+        item['location'] = clean(item['location'])
+        item['title_company'] = clean(item['title_company'])
+        item['biography_summary'] = clean(item['biography_summary'])
+
+
+
         # clean_location = []
         # for loc in item['location']:
         #     loc = re.sub(r',', '', re.sub(r'\s+$','',re.sub(r'^\s+','',loc)))
