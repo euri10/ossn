@@ -7,6 +7,7 @@
 
 import re
 
+
 def clean(lst):
     clean_name = []
     if lst:
@@ -15,6 +16,7 @@ def clean(lst):
                 l = re.match('^(\s+)?(.*?)(\s+)$', l).group(2)
             clean_name.append(l)
     return clean_name
+
 
 class OssnPipeline(object):
     def process_item(self, item, spider):

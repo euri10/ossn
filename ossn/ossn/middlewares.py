@@ -1,14 +1,13 @@
 __author__ = 'euri10'
 
-__author__ = 'bbarthelet'
-
 
 # Importing base64 library because we'll need it ONLY in case if the proxy we are going to use requires authentication
 import base64
-import random
 from ConfigParser import SafeConfigParser, NoSectionError
 
 # Start your middleware class
+
+
 class ProxyMiddleware(object):
     # overwrite process request
     def process_request(self, request, spider):
